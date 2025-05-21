@@ -158,8 +158,6 @@ inline bool MysqlxSchema::init(const std::string & uri)
 
     try
     {
-        m_uri = uri;
-
         m_session = new mysqlx::Session(m_uri.c_str());
         if (nullptr == m_session)
         {
@@ -175,24 +173,25 @@ inline bool MysqlxSchema::init(const std::string & uri)
         }
 
         m_transaction = false;
+        m_uri = uri;
 
         return true;
     }
     catch (const mysqlx::Error & err)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_uri.c_str(), err.what());
+        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", uri.c_str(), err.what());
     }
     catch (std::exception & err)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_uri.c_str(), err.what());
+        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", uri.c_str(), err.what());
     }
     catch (const char * err)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_uri.c_str(), err);
+        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", uri.c_str(), err);
     }
     catch (...)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception", m_uri.c_str());
+        RUN_LOG_CRI("mysql schema (%s) init exception", uri.c_str());
     }
 
     return false;
@@ -213,6 +212,8 @@ inline void MysqlxSchema::exit()
             delete m_session;
             m_session = nullptr;
         }
+
+        m_uri.clear();
     }
     catch (const mysqlx::Error & err)
     {
@@ -363,22 +364,15 @@ inline bool MysqlxTable::init(const std::string & uri, const std::string & tb)
 
     if (tb.empty())
     {
-        RUN_LOG_ERR("mysql table init failure while invalid tb name");
+        RUN_LOG_ERR("mysql table init failure while invalid tb");
         return false;
     }
 
-    if (std::string::npos == uri.find('?'))
-    {
-        m_tb = uri + "?table=" + tb;
-    }
-    else
-    {
-        m_tb = uri + "&table=" + tb;
-    }
+    const std::string name(uri + (std::string::npos == uri.find('?') ? "?table=" : "&table=") + tb);
 
     if (!m_schema.init(uri))
     {
-        RUN_LOG_ERR("mysql table (%s) init failure while init schema", m_tb.c_str());
+        RUN_LOG_ERR("mysql table (%s) init failure while init schema", name.c_str());
         return false;
     }
 
@@ -387,27 +381,29 @@ inline bool MysqlxTable::init(const std::string & uri, const std::string & tb)
         m_table = new mysqlx::Table(*&m_schema, tb.c_str(), true);
         if (nullptr == m_table)
         {
-            RUN_LOG_ERR("mysql table (%s) init failure while create table", m_tb.c_str());
+            RUN_LOG_ERR("mysql table (%s) init failure while create table", name.c_str());
             return false;
         }
+
+        m_tb = name;
 
         return true;
     }
     catch (const mysqlx::Error & err)
     {
-        RUN_LOG_CRI("mysql table (%s) init exception (%s)", m_tb.c_str(), err.what());
+        RUN_LOG_CRI("mysql table (%s) init exception (%s)", name.c_str(), err.what());
     }
     catch (std::exception & err)
     {
-        RUN_LOG_CRI("mysql table (%s) init exception (%s)", m_tb.c_str(), err.what());
+        RUN_LOG_CRI("mysql table (%s) init exception (%s)", name.c_str(), err.what());
     }
     catch (const char * err)
     {
-        RUN_LOG_CRI("mysql table (%s) init exception (%s)", m_tb.c_str(), err);
+        RUN_LOG_CRI("mysql table (%s) init exception (%s)", name.c_str(), err);
     }
     catch (...)
     {
-        RUN_LOG_CRI("mysql table (%s) init exception", m_tb.c_str());
+        RUN_LOG_CRI("mysql table (%s) init exception", name.c_str());
     }
 
     return false;
@@ -422,6 +418,8 @@ inline void MysqlxTable::exit()
             delete m_table;
             m_table = nullptr;
         }
+
+        m_tb.clear();
     }
     catch (const mysqlx::Error & err)
     {
@@ -439,6 +437,7 @@ inline void MysqlxTable::exit()
     {
         RUN_LOG_CRI("mysql table (%s) exit exception", m_tb.c_str());
     }
+
     m_schema.exit();
 }
 
