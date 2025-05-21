@@ -155,3 +155,4 @@ install  :
 		mkdir -p $(install_dir);		\
 	fi
 	cp -f $(project_inc_path)/$(project_name).h $(install_dir)/
+	cp -f $(project_inc_path)/macros.h $(install_dir)/

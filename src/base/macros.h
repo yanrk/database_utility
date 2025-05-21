@@ -97,6 +97,13 @@
     #define GOOFER_I64_FMT      "%I64d"
     #define GOOFER_I64_ARG(x)   ((__int64)(x))
     #define GOOFER_U64_ARG(x)   ((unsigned __int64)(x))
+#elif defined(GOOFER_OS_IS_64_BIT)
+    #define GOOFER_I64_VAL(n)   n##L
+    #define GOOFER_U64_VAL(n)   n##UL
+    #define GOOFER_U64_FMT      "%lu"
+    #define GOOFER_I64_FMT      "%ld"
+    #define GOOFER_I64_ARG(x)   ((long)(x))
+    #define GOOFER_U64_ARG(x)   ((unsigned long)(x))
 #else
     #define GOOFER_I64_VAL(n)   n##LL
     #define GOOFER_U64_VAL(n)   n##ULL

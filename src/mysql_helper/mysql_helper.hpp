@@ -14,125 +14,191 @@
 #include "mysqlx/xdevapi.h"
 #include "base.h"
 
-class MysqlSchema
+#define MYSQL_HELPER_TRY                                                \
+    try                                                                 \
+    {
+
+#define MYSQL_HELPER_CATCH1(description)                                \
+    }                                                                   \
+    catch (const mysqlx::Error & err)                                   \
+    {                                                                   \
+        RUN_LOG_CRI("%s exception (%s)", description, err.what());      \
+    }                                                                   \
+    catch (std::exception & err)                                        \
+    {                                                                   \
+        RUN_LOG_CRI("%s exception (%s)", description, err.what());      \
+    }                                                                   \
+    catch (const char * err)                                            \
+    {                                                                   \
+        RUN_LOG_CRI("%s exception (%s)", description, err);             \
+    }                                                                   \
+    catch (...)                                                         \
+    {                                                                   \
+        RUN_LOG_CRI("%s exception (unknown)", description);             \
+    }
+
+#define MYSQL_HELPER_CATCH2(operate, tb)                                \
+    }                                                                   \
+    catch (const mysqlx::Error & err)                                   \
+    {                                                                   \
+        RUN_LOG_CRI("%s %s exception (%s)", operate, tb, err.what());   \
+    }                                                                   \
+    catch (std::exception & err)                                        \
+    {                                                                   \
+        RUN_LOG_CRI("%s %s exception (%s)", operate, tb, err.what());   \
+    }                                                                   \
+    catch (const char * err)                                            \
+    {                                                                   \
+        RUN_LOG_CRI("%s %s exception (%s)", operate, tb, err);          \
+    }                                                                   \
+    catch (...)                                                         \
+    {                                                                   \
+        RUN_LOG_CRI("%s %s exception (unknown)", operate, tb);          \
+    }
+
+class MysqlxSchema
 {
 public:
-    MysqlSchema();
-    ~MysqlSchema();
+    MysqlxSchema();
+    ~MysqlxSchema();
 
 public:
-    bool init(const std::string & db);
+    bool init(const std::string & uri); // mysqlx://user:pass@host1:port1,host2:port2/db?option1=value1&option2=value2
     void exit();
 
 public:
+    bool is_open() const;
     const std::string & get_name() const;
+    bool execute_sql(const std::string & statement);
+
+public:
+    bool transaction_start();
+    bool transaction_create_snapshot(std::string & save_point_name);
+    bool transaction_remove_snapshot(const std::string & save_point_name);
+    bool transaction_rollback(const std::string & save_point_name);
+    bool transaction_rollback();
+    bool transaction_commit();
 
 public:
     mysqlx::Schema * operator -> () const;
     mysqlx::Schema * operator & () const;
 
 private:
-    MysqlSchema(const MysqlSchema &) = delete;
-    MysqlSchema(MysqlSchema &&) = delete;
-    MysqlSchema & operator = (const MysqlSchema &) = delete;
-    MysqlSchema & operator = (MysqlSchema &&) = delete;
+    MysqlxSchema(const MysqlxSchema &) = delete;
+    MysqlxSchema(MysqlxSchema &&) = delete;
+    MysqlxSchema & operator = (const MysqlxSchema &) = delete;
+    MysqlxSchema & operator = (MysqlxSchema &&) = delete;
 
 private:
+    bool                                m_transaction;
     mysqlx::Session                   * m_session;
     mysqlx::Schema                    * m_schema;
-    std::string                         m_db;
+    std::string                         m_uri;
 };
 
-class MysqlTable
+class MysqlxTable
 {
 public:
-    MysqlTable();
-    ~MysqlTable();
+    MysqlxTable();
+    ~MysqlxTable();
 
 public:
-    bool init(const std::string & db, const std::string & tb);
+    bool init(const std::string & uri, const std::string & tb);
     void exit();
 
 public:
+    bool is_open() const;
     const std::string & get_name() const;
+    bool execute_sql(const std::string & statement);
+
+public:
+    bool transaction_start();
+    bool transaction_create_snapshot(std::string & save_point_name);
+    bool transaction_remove_snapshot(const std::string & save_point_name);
+    bool transaction_rollback(const std::string & save_point_name);
+    bool transaction_rollback();
+    bool transaction_commit();
 
 public:
     mysqlx::Table * operator -> () const;
 
 private:
-    MysqlTable(const MysqlTable &) = delete;
-    MysqlTable(MysqlTable &&) = delete;
-    MysqlTable & operator = (const MysqlTable &) = delete;
-    MysqlTable & operator = (MysqlTable &&) = delete;
+    MysqlxTable(const MysqlxTable &) = delete;
+    MysqlxTable(MysqlxTable &&) = delete;
+    MysqlxTable & operator = (const MysqlxTable &) = delete;
+    MysqlxTable & operator = (MysqlxTable &&) = delete;
 
 private:
-    MysqlSchema                         m_schema;
+    MysqlxSchema                        m_schema;
     mysqlx::Table                     * m_table;
     std::string                         m_tb;
 };
 
-inline MysqlSchema::MysqlSchema()
-    : m_session(nullptr)
+inline MysqlxSchema::MysqlxSchema()
+    : m_transaction(false)
+    , m_session(nullptr)
     , m_schema(nullptr)
-    , m_db()
+    , m_uri()
 {
 
 }
 
-inline MysqlSchema::~MysqlSchema()
+inline MysqlxSchema::~MysqlxSchema()
 {
     exit();
 }
 
-inline bool MysqlSchema::init(const std::string & db)
+inline bool MysqlxSchema::init(const std::string & uri)
 {
-    if (db.empty())
+    if (uri.empty())
     {
-        RUN_LOG_ERR("mysql schema init failure while invalid db name");
+        RUN_LOG_ERR("mysql schema init failure while invalid uri");
         return false;
     }
 
     try
     {
-        m_db = db;
+        m_uri = uri;
 
-        m_session = new mysqlx::Session(m_db.c_str());
+        m_session = new mysqlx::Session(m_uri.c_str());
         if (nullptr == m_session)
         {
-            RUN_LOG_ERR("mysql schema (%s) init failure while create session", m_db.c_str());
+            RUN_LOG_ERR("mysql schema (%s) init failure while create session", m_uri.c_str());
             return false;
         }
 
         m_schema = new mysqlx::Schema(m_session->getDefaultSchema());
         if (nullptr == m_schema)
         {
-            RUN_LOG_ERR("mysql schema (%s) init failure while create schema", m_db.c_str());
+            RUN_LOG_ERR("mysql schema (%s) init failure while create schema", m_uri.c_str());
             return false;
         }
+
+        m_transaction = false;
 
         return true;
     }
     catch (const mysqlx::Error & err)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_db.c_str(), err.what());
+        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_uri.c_str(), err.what());
     }
     catch (std::exception & err)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_db.c_str(), err.what());
+        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_uri.c_str(), err.what());
     }
     catch (const char * err)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_db.c_str(), err);
+        RUN_LOG_CRI("mysql schema (%s) init exception (%s)", m_uri.c_str(), err);
     }
     catch (...)
     {
-        RUN_LOG_CRI("mysql schema (%s) init exception", m_db.c_str());
+        RUN_LOG_CRI("mysql schema (%s) init exception", m_uri.c_str());
     }
 
     return false;
 }
 
-inline void MysqlSchema::exit()
+inline void MysqlxSchema::exit()
 {
     try
     {
@@ -150,38 +216,131 @@ inline void MysqlSchema::exit()
     }
     catch (const mysqlx::Error & err)
     {
-        RUN_LOG_CRI("mysql schema (%s) exit exception (%s)", m_db.c_str(), err.what());
+        RUN_LOG_CRI("mysql schema (%s) exit exception (%s)", m_uri.c_str(), err.what());
     }
     catch (std::exception & err)
     {
-        RUN_LOG_CRI("mysql schema (%s) exit exception (%s)", m_db.c_str(), err.what());
+        RUN_LOG_CRI("mysql schema (%s) exit exception (%s)", m_uri.c_str(), err.what());
     }
     catch (const char * err)
     {
-        RUN_LOG_CRI("mysql schema (%s) exit exception (%s)", m_db.c_str(), err);
+        RUN_LOG_CRI("mysql schema (%s) exit exception (%s)", m_uri.c_str(), err);
     }
     catch (...)
     {
-        RUN_LOG_CRI("mysql schema (%s) exit exception", m_db.c_str());
+        RUN_LOG_CRI("mysql schema (%s) exit exception", m_uri.c_str());
     }
 }
 
-inline const std::string & MysqlSchema::get_name() const
+inline bool MysqlxSchema::is_open() const
 {
-    return m_db;
+    return !m_uri.empty();
 }
 
-inline mysqlx::Schema * MysqlSchema::operator -> () const
+inline const std::string & MysqlxSchema::get_name() const
+{
+    return m_uri;
+}
+
+inline bool MysqlxSchema::execute_sql(const std::string & statement)
+{
+    if (!is_open() || statement.empty())
+    {
+        return false;
+    }
+
+    m_session->sql(statement).execute();
+    return true;
+}
+
+inline bool MysqlxSchema::transaction_start()
+{
+    if (!is_open() || m_transaction)
+    {
+        return false;
+    }
+
+    m_session->startTransaction();
+    m_transaction = true;
+    return true;
+}
+
+inline bool MysqlxSchema::transaction_create_snapshot(std::string & save_point_name)
+{
+    if (!is_open() || !m_transaction)
+    {
+        return false;
+    }
+
+    if (save_point_name.empty())
+    {
+        save_point_name = m_session->setSavepoint();
+    }
+    else
+    {
+        m_session->setSavepoint(save_point_name);
+    }
+
+    return true;
+}
+
+inline bool MysqlxSchema::transaction_remove_snapshot(const std::string & save_point_name)
+{
+    if (!is_open() || !m_transaction || save_point_name.empty())
+    {
+        return false;
+    }
+
+    m_session->releaseSavepoint(save_point_name);
+    return true;
+}
+
+inline bool MysqlxSchema::transaction_rollback(const std::string & save_point_name)
+{
+    if (!is_open() || !m_transaction || save_point_name.empty())
+    {
+        return false;
+    }
+
+    m_session->rollbackTo(save_point_name);
+    return true;
+}
+
+inline bool MysqlxSchema::transaction_rollback()
+{
+    if (!is_open() || !m_transaction)
+    {
+        return false;
+    }
+
+    m_transaction = false;
+    m_session->rollback();
+    return true;
+}
+
+inline bool MysqlxSchema::transaction_commit()
+{
+    if (!is_open() || !m_transaction)
+    {
+        return false;
+    }
+
+    m_transaction = false;
+    m_session->commit();
+    return true;
+}
+
+inline mysqlx::Schema * MysqlxSchema::operator -> () const
 {
     return m_schema;
 }
 
-inline mysqlx::Schema * MysqlSchema::operator & () const
+inline mysqlx::Schema * MysqlxSchema::operator & () const
 {
     return m_schema;
 }
 
-inline MysqlTable::MysqlTable()
+inline MysqlxTable::MysqlxTable()
     : m_schema()
     , m_table(nullptr)
     , m_tb()
@@ -189,16 +348,16 @@ inline MysqlTable::MysqlTable()
 
 }
 
-inline MysqlTable::~MysqlTable()
+inline MysqlxTable::~MysqlxTable()
 {
     exit();
 }
 
-inline bool MysqlTable::init(const std::string & db, const std::string & tb)
+inline bool MysqlxTable::init(const std::string & uri, const std::string & tb)
 {
-    if (db.empty())
+    if (uri.empty())
     {
-        RUN_LOG_ERR("mysql table init failure while invalid db name");
+        RUN_LOG_ERR("mysql table init failure while invalid uri");
         return false;
     }
 
@@ -208,9 +367,16 @@ inline bool MysqlTable::init(const std::string & db, const std::string & tb)
         return false;
     }
 
-    m_tb = db + "?table=" + tb;
+    if (std::string::npos == uri.find('?'))
+    {
+        m_tb = uri + "?table=" + tb;
+    }
+    else
+    {
+        m_tb = uri + "&table=" + tb;
+    }
 
-    if (!m_schema.init(db))
+    if (!m_schema.init(uri))
     {
         RUN_LOG_ERR("mysql table (%s) init failure while init schema", m_tb.c_str());
         return false;
@@ -247,7 +413,7 @@ inline bool MysqlTable::init(const std::string & db, const std::string & tb)
     return false;
 }
 
-inline void MysqlTable::exit()
+inline void MysqlxTable::exit()
 {
     try
     {
@@ -276,12 +442,52 @@ inline void MysqlTable::exit()
     m_schema.exit();
 }
 
-inline const std::string & MysqlTable::get_name() const
+inline bool MysqlxTable::is_open() const
+{
+    return !m_tb.empty();
+}
+
+inline const std::string & MysqlxTable::get_name() const
 {
     return m_tb;
 }
 
-inline mysqlx::Table * MysqlTable::operator -> () const
+inline bool MysqlxTable::execute_sql(const std::string & statement)
+{
+    return m_schema.execute_sql(statement);
+}
+
+inline bool MysqlxTable::transaction_start()
+{
+    return m_schema.transaction_start();
+}
+
+inline bool MysqlxTable::transaction_create_snapshot(std::string & save_point_name)
+{
+    return m_schema.transaction_create_snapshot(save_point_name);
+}
+
+inline bool MysqlxTable::transaction_remove_snapshot(const std::string & save_point_name)
+{
+    return m_schema.transaction_remove_snapshot(save_point_name);
+}
+
+inline bool MysqlxTable::transaction_rollback(const std::string & save_point_name)
+{
+    return m_schema.transaction_rollback(save_point_name);
+}
+
+inline bool MysqlxTable::transaction_rollback()
+{
+    return m_schema.transaction_rollback();
+}
+
+inline bool MysqlxTable::transaction_commit()
+{
+    return m_schema.transaction_commit();
+}
+
+inline mysqlx::Table * MysqlxTable::operator -> () const
 {
     return m_table;
 }
