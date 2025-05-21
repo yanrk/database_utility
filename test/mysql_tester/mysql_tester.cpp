@@ -1,5 +1,5 @@
 /********************************************************
- * Description : sample of string codec functions
+ * Description : sample of mysql helper
  * Author      : yanrk
  * Email       : yanrkchina@163.com
  * Version     : 1.0
@@ -134,10 +134,18 @@ bool MyqlTester1::test_type_check()
     src_type_check.f = 1 / 7.0f;
     src_type_check.d = 1 / 7.0;
     src_type_check.s = "test";
-    insert_type_check(src_type_check);
+    if (!insert_type_check(src_type_check))
+    {
+        printf("tester1 test insert failure\n");
+        return false;
+    }
 
     type_check_t dst_type_check;
-    select_type_check(dst_type_check);
+    if (!select_type_check(dst_type_check))
+    {
+        printf("tester1 test select failure\n");
+        return false;
+    }
 
     if (src_type_check != dst_type_check)
     {
@@ -145,7 +153,11 @@ bool MyqlTester1::test_type_check()
         return false;
     }
 
-    remove_type_check(dst_type_check);
+    if (!remove_type_check(dst_type_check))
+    {
+        printf("tester1 test remove failure\n");
+        return false;
+    }
 
     return true;
 }
@@ -188,7 +200,7 @@ bool MyqlTester1::select_type_check(type_check_t & type_check)
 {
     MYSQL_HELPER_TRY
     {
-        mysqlx::RowResult type_row_list = m_table->select().limit(1).execute();
+        mysqlx::RowResult type_row_list = m_table->select().orderBy("id desc").limit(1).execute();
         mysqlx::Row type_row = type_row_list.fetchOne();
         if (!type_row)
         {
@@ -346,7 +358,9 @@ bool MyqlTester2::test_remove_conf_abc()
     MYSQL_HELPER_TRY
     {
         mysqlx::Table conf_abc_table = m_schema->getTable("t_conf_abc");
+
         remove_conf_abc(conf_abc_table, m_conf_abc);
+
         return true;
     }
     MYSQL_HELPER_CATCH2("get table", "t_conf_abc")
@@ -376,7 +390,7 @@ bool MyqlTester2::test_modify_data_xyz()
                 data_xyz.z = i / 7.0;
                 if (!insert_data_xyz(data_xyz_table, data_xyz))
                 {
-                    break;
+                    return false;
                 }
             }
         }
@@ -390,7 +404,7 @@ bool MyqlTester2::test_modify_data_xyz()
                 data_xyz.z += data_xyz.z;
                 if (!update_data_xyz(data_xyz_table, data_xyz))
                 {
-                    break;
+                    return false;
                 }
             }
         }
@@ -412,7 +426,9 @@ bool MyqlTester2::test_remove_data_xyz()
     MYSQL_HELPER_TRY
     {
         mysqlx::Table data_xyz_table = m_schema->getTable("t_data_xyz");
+
         remove_data_xyz(data_xyz_table);
+
         return true;
     }
     MYSQL_HELPER_CATCH2("get table", "t_data_xyz")
@@ -424,7 +440,7 @@ bool MyqlTester2::select_conf_abc(mysqlx::Table & conf_abc_table, conf_abc_t & c
 {
     MYSQL_HELPER_TRY
     {
-        mysqlx::RowResult abc_row_list = conf_abc_table.select().orderBy("id desc").limit(1).execute();
+        mysqlx::RowResult abc_row_list = conf_abc_table.select().limit(1).execute();
         mysqlx::Row abc_row = abc_row_list.fetchOne();
         if (!abc_row)
         {
@@ -528,7 +544,6 @@ bool MyqlTester2::select_data_xyz(mysqlx::Table & data_xyz_table, std::list<data
             uint32_t index = 0;
             data_xyz_t data_xyz;
 
-            index = 0;
             data_xyz.id = xyz_row.get(index++);
             data_xyz.x = static_cast<std::string>(xyz_row.get(index++));
             data_xyz.y = xyz_row.get(index++);
