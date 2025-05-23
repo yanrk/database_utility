@@ -41,8 +41,8 @@ public:
 
 public:
     bool execute(const std::string & sql);
-    bool begin_transaction();
-    bool end_transaction();
+    bool transaction_begin();
+    bool transaction_end();
 
 public:
     SQLiteReader create_reader(const std::string & sql);
@@ -120,6 +120,7 @@ public:
     bool get(float & value);
     bool get(double & value);
     bool get(std::string & value);
+    bool get(void * ignore);
 
 protected:
     bool get(int index, int & value);

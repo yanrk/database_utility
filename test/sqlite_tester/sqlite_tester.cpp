@@ -27,8 +27,10 @@ static const table_row_t table_row[] =
     { 3, "Mark",  25, "Rich-Mond",  65000.00 }
 };
 
-static bool table_test_create(SQLiteDB & db)
+static bool test_table_create(SQLiteDB & db)
 {
+    printf("test create table ...\n");
+
     const char * create_table_sql = 
         "CREATE TABLE IF NOT EXISTS COMPANY ("  \
         "ID BIGINT PRIMARY KEY       NOT NULL," \
@@ -36,14 +38,15 @@ static bool table_test_create(SQLiteDB & db)
         "AGE               INT       NOT NULL," \
         "ADDRESS           CHAR(50),"           \
         "SALARY            REAL );";
+
     return db.execute(create_table_sql);
 }
 
-static bool table_test_delete(SQLiteDB & db)
+static bool test_table_delete(SQLiteDB & db)
 {
     printf("test delete data ...\n");
 
-    const char * delete_sql = "DELETE FROM COMPANY";
+    const char * delete_sql = "DELETE FROM COMPANY;";
     SQLiteWriter writer(db.create_writer(delete_sql));
     if (!writer.good())
     {
@@ -63,23 +66,23 @@ static bool table_test_delete(SQLiteDB & db)
     return true;
 }
 
-static bool table_test_insert(SQLiteDB & db)
+static bool test_table_insert(SQLiteDB & db)
 {
     printf("test insert data ...\n");
 
-    const char * insert_sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES (?, ?, ?, ?, ?)";
+    const char * insert_sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES (?, ?, ?, ?, ?);";
     SQLiteWriter writer(db.create_writer(insert_sql));
     if (!writer.good())
     {
         return false;
     }
 
-    if (!db.begin_transaction())
+    if (!db.transaction_begin())
     {
         return false;
     }
 
-    for (int index = 0; index < sizeof(table_row) / sizeof(table_row[0]); ++index)
+    for (uint32_t index = 0; index < sizeof(table_row) / sizeof(table_row[0]); ++index)
     {
         const table_row_t & row = table_row[index];
         printf("    %d: [" GOOFER_U64_FMT " %10s %6d %12s %12.2f]\n", index, row.id, row.name.c_str(), row.age, row.address.c_str(), row.salary);
@@ -95,7 +98,7 @@ static bool table_test_insert(SQLiteDB & db)
         }
     }
 
-    if (!db.end_transaction())
+    if (!db.transaction_end())
     {
         return false;
     }
@@ -103,23 +106,23 @@ static bool table_test_insert(SQLiteDB & db)
     return true;
 }
 
-static bool table_test_update(SQLiteDB & db)
+static bool test_table_update(SQLiteDB & db)
 {
     printf("test update data ...\n");
 
-    const char * update_sql = "UPDATE COMPANY set SALARY = SALARY+? where ID=?";
+    const char * update_sql = "UPDATE COMPANY set SALARY = SALARY+? where ID=?;";
     SQLiteWriter writer(db.create_writer(update_sql));
     if (!writer.good())
     {
         return false;
     }
 
-    if (!db.begin_transaction())
+    if (!db.transaction_begin())
     {
         return false;
     }
 
-    for (int index = 0; index < sizeof(table_row) / sizeof(table_row[0]); ++index)
+    for (uint32_t index = 0; index < sizeof(table_row) / sizeof(table_row[0]); ++index)
     {
         printf("    %d update...\n", index);
         writer.reset();
@@ -131,7 +134,7 @@ static bool table_test_update(SQLiteDB & db)
         }
     }
 
-    if (!db.end_transaction())
+    if (!db.transaction_end())
     {
         return false;
     }
@@ -139,11 +142,11 @@ static bool table_test_update(SQLiteDB & db)
     return true;
 }
 
-static bool table_test_select(SQLiteDB & db)
+static bool test_table_select(SQLiteDB & db)
 {
     printf("test select data ...\n");
 
-    const char * select_sql = "SELECT * from COMPANY";
+    const char * select_sql = "SELECT * from COMPANY;";
     SQLiteReader reader(db.create_reader(select_sql));
     if (!reader.good())
     {
@@ -177,42 +180,49 @@ static bool test_sqlite()
 
     if (!db.is_open())
     {
+        printf("sqlite db is not open\n");
         return false;
     }
 
-    if (!table_test_delete(db))
+    if (!test_table_create(db))
     {
-        printf("sqlite table test delete failure\n");
+        printf("sqlite test table create failure\n");
         return false;
     }
 
-    if (!table_test_insert(db))
+    if (!test_table_delete(db))
     {
-        printf("sqlite table test insert failure\n");
+        printf("sqlite test table delete failure\n");
         return false;
     }
 
-    if (!table_test_select(db))
+    if (!test_table_insert(db))
     {
-        printf("sqlite table test select failure\n");
+        printf("sqlite test table insert failure\n");
         return false;
     }
 
-    if (!table_test_update(db))
+    if (!test_table_select(db))
     {
-        printf("sqlite table test update failure\n");
+        printf("sqlite test table select failure\n");
         return false;
     }
 
-    if (!table_test_select(db))
+    if (!test_table_update(db))
     {
-        printf("sqlite table test select failure\n");
+        printf("sqlite test table update failure\n");
         return false;
     }
 
-    if (!table_test_delete(db))
+    if (!test_table_select(db))
     {
-        printf("sqlite table test delete failure\n");
+        printf("sqlite test table select failure\n");
+        return false;
+    }
+
+    if (!test_table_delete(db))
+    {
+        printf("sqlite test table delete failure\n");
         return false;
     }
 

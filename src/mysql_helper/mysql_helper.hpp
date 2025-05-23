@@ -1,5 +1,5 @@
 /********************************************************
- * Description : mysql helper
+ * Description : mysql helper of mysqlx cpp connector
  * Author      : yanrk
  * Email       : yanrkchina@163.com
  * Version     : 2.0

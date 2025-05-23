@@ -29,14 +29,14 @@ bool SQLiteDB::init(const std::string & path)
 
     if (path.empty())
     {
-        RUN_LOG_ERR("sqlite db open failure while path is invalid");
+        RUN_LOG_ERR("sqlite db init failure while path is invalid");
         return false;
     }
 
     int result = sqlite3_open(path.c_str(), &m_sqlite);
     if (SQLITE_OK != result)
     {
-        RUN_LOG_ERR("sqlite db open failure while open (%s) failed, error (%d: %s)", path.c_str(), result, sqlite3_errstr(result));
+        RUN_LOG_ERR("sqlite db init failure while open (%s) failed, error (%d: %s)", path.c_str(), result, sqlite3_errstr(result));
         return false;
     }
 
@@ -52,7 +52,7 @@ void SQLiteDB::exit()
         int result = sqlite3_close(m_sqlite);
         if (SQLITE_OK != result)
         {
-            RUN_LOG_ERR("sqlite db close failure while close (%s) failed, error (%d: %s)", m_path.c_str(), result, sqlite3_errstr(result));
+            RUN_LOG_ERR("sqlite db exit failure while close (%s) failed, error (%d: %s)", m_path.c_str(), result, sqlite3_errstr(result));
         }
         m_sqlite = nullptr;
         m_path.clear();
@@ -71,7 +71,7 @@ int SQLiteDB::error() const
 
 const char * SQLiteDB::what() const
 {
-    return nullptr != m_sqlite ? sqlite3_errmsg(m_sqlite) : "sqlite db is closed";
+    return nullptr != m_sqlite ? sqlite3_errmsg(m_sqlite) : "sqlite db is not open";
 }
 
 bool SQLiteDB::execute(const std::string & sql)
@@ -97,12 +97,12 @@ bool SQLiteDB::execute(const std::string & sql)
     return SQLITE_OK == result;
 }
 
-bool SQLiteDB::begin_transaction()
+bool SQLiteDB::transaction_begin()
 {
     return execute("BEGIN TRANSACTION;");
 }
 
-bool SQLiteDB::end_transaction()
+bool SQLiteDB::transaction_end()
 {
     return execute("END TRANSACTION;");
 }
@@ -304,6 +304,7 @@ bool SQLiteStatement::set(bool value)
 {
     return set(m_set_index++, static_cast<int>(value));
 }
+
 bool SQLiteStatement::set(int8_t value)
 {
     return set(m_set_index++, static_cast<int>(value));
@@ -459,6 +460,25 @@ bool SQLiteReader::get(int index, std::string & value)
     const char * column_text = reinterpret_cast<const char *>(sqlite3_column_text(m_statement, index));
     int column_size = sqlite3_column_bytes(m_statement, index);
     value.assign(column_text, column_size);
+
+    return true;
+}
+
+bool SQLiteReader::get(void * ignore)
+{
+    if (nullptr == m_statement)
+    {
+        return false;
+    }
+
+    int index = m_get_index++;
+    if (index >= sqlite3_column_count(m_statement))
+    {
+        RUN_LOG_ERR("sqlite reader (%s) get failure while get index is overflow (%d >= %d)", m_sql.c_str(), index, sqlite3_column_count(m_statement));
+        return false;
+    }
+
+    PARAMS_IGN(ignore);
 
     return true;
 }
