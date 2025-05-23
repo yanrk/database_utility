@@ -150,6 +150,8 @@ inline MysqlxSchema::~MysqlxSchema()
 
 inline bool MysqlxSchema::init(const std::string & uri)
 {
+    exit();
+
     if (uri.empty())
     {
         RUN_LOG_ERR("mysql schema init failure while invalid uri");
@@ -356,6 +358,8 @@ inline MysqlxTable::~MysqlxTable()
 
 inline bool MysqlxTable::init(const std::string & uri, const std::string & tb)
 {
+    exit();
+
     if (uri.empty())
     {
         RUN_LOG_ERR("mysql table init failure while invalid uri");
