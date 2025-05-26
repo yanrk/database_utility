@@ -1,6 +1,7 @@
 mkdir ..\lib
 mkdir ..\lib\windows
 xcopy ..\src\mysql_connector\lib\windows ..\lib\windows /e /i /y
+xcopy ..\src\hiredis\lib\windows ..\lib\windows /e /i /y
 
 mkdir ..\bin
 mkdir ..\bin\windows
