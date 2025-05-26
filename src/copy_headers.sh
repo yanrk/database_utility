@@ -6,3 +6,4 @@ cp base/base.h ../include
 cp base/macros.h ../include
 cp mysql_helper/mysql_helper.hpp ../include
 cp sqlite_helper/sqlite_helper.h ../include
+cp redis_helper/redis_helper.h ../include

@@ -35,22 +35,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="detail\sqlite3.h" />
-    <ClInclude Include="detail\sqlite3ext.h" />
-    <ClInclude Include="sqlite_helper.h" />
+    <ClInclude Include="cluster\adlist.h" />
+    <ClInclude Include="cluster\cmddef.h" />
+    <ClInclude Include="cluster\command.h" />
+    <ClInclude Include="cluster\dict.h" />
+    <ClInclude Include="cluster\hiarray.h" />
+    <ClInclude Include="cluster\hircluster.h" />
+    <ClInclude Include="cluster\hiutil.h" />
+    <ClInclude Include="cluster\win32.h" />
+    <ClInclude Include="redis_helper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="detail\shell.c" />
-    <ClCompile Include="detail\sqlite3.c" />
-    <ClCompile Include="sqlite_helper.cpp" />
+    <ClCompile Include="cluster\adlist.c" />
+    <ClCompile Include="cluster\command.c" />
+    <ClCompile Include="cluster\crc16.c" />
+    <ClCompile Include="cluster\dict.c" />
+    <ClCompile Include="cluster\hiarray.c" />
+    <ClCompile Include="cluster\hircluster.c" />
+    <ClCompile Include="cluster\hiutil.c" />
+    <ClCompile Include="redis_helper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="sqlite_helper.def" />
+    <None Include="redis_helper.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7C7B0ABF-6757-4C5A-ABCB-85FA09C96399}</ProjectGuid>
+    <ProjectGuid>{17BC7C51-B421-4D70-91AE-2D92505D509C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>sqlite_helper</RootNamespace>
+    <RootNamespace>redis_helper</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -183,13 +194,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;hiredis.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;../hiredis/lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
     </Link>
@@ -201,14 +212,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>
       </AdditionalDependencies>
       <AdditionalLibraryDirectories>
@@ -228,13 +239,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;hiredis.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;../hiredis/lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
     </Link>
@@ -246,14 +257,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>
       </AdditionalDependencies>
       <AdditionalLibraryDirectories>
@@ -275,7 +286,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -283,7 +294,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;hiredis.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;../hiredis/lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
     </Link>
@@ -297,7 +308,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -306,7 +317,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>
       </AdditionalDependencies>
       <AdditionalLibraryDirectories>
@@ -327,7 +338,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -335,7 +346,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;hiredis.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;../hiredis/lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
     </Link>
@@ -349,7 +360,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;./detail/;../base/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./cluster/;../base/;../hiredis/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -358,7 +369,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>sqlite_helper.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>redis_helper.def</ModuleDefinitionFile>
       <AdditionalDependencies>
       </AdditionalDependencies>
       <AdditionalLibraryDirectories>

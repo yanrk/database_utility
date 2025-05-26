@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="inc">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{9c495c42-7184-46bd-b4eb-6a025f11aea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\cluster">
+      <UniqueIdentifier>{18b24f42-0dd4-4d67-a0d1-e1e6a5146129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\cluster">
+      <UniqueIdentifier>{66f34e44-19bd-4f9a-8911-bf1921fd35e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cluster\adlist.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="cluster\cmddef.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="cluster\command.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="cluster\dict.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="cluster\hiarray.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="cluster\hircluster.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="cluster\hiutil.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="cluster\win32.h">
+      <Filter>inc\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="redis_helper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cluster\adlist.c">
+      <Filter>src\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="cluster\command.c">
+      <Filter>src\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="cluster\crc16.c">
+      <Filter>src\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="cluster\dict.c">
+      <Filter>src\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="cluster\hiarray.c">
+      <Filter>src\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="cluster\hircluster.c">
+      <Filter>src\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="cluster\hiutil.c">
+      <Filter>src\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="redis_helper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="redis_helper.def">
+      <Filter>res</Filter>
+    </None>
+  </ItemGroup>
+</Project>
