@@ -42,6 +42,10 @@ project_includes            = -I$(project_inc_path)
 depends_inc_path            = $(project_home)/../../include
 depends_includes            = -I$(depends_inc_path)
 
+# includes of mysql_connector headers
+mysql_connector_inc_path    = $(project_home)/../../src/mysql_connector/include
+mysql_connector_includes    = -I$(mysql_connector_inc_path)
+
 # includes of system headers
 sys_inc_path                = $(system_inc)
 sys_includes                = -I$(sys_inc_path)
@@ -51,6 +55,7 @@ sys_includes                = -I$(sys_inc_path)
 # all includes that project solution needs
 includes                    = $(project_includes)
 includes                   += $(depends_includes)
+includes                   += $(mysql_connector_includes)
 includes                   += $(sys_includes)
 
 
@@ -76,12 +81,17 @@ sys_libs                    = -L$(sys_lib_path) -lpthread -ldl -lrt
 
 # depend libraries
 dep_lib_path                = $(project_home)/../../lib
-dep_libs                    = -L$(dep_lib_path) -lbase -lmysqlcppconnx -lssl -lcrypto
+dep_libs                    = -L$(dep_lib_path) -lbase
+
+# depend libraries
+mysql_connector_lib_path    = $(project_home)/../../src/mysql_connector/lib/linux/x64
+mysql_connector_libs        = -L$(mysql_connector_lib_path) -lmysqlcppconnx -lssl -lcrypto
 
 
 
 # project depends libraries
 project_depends             = $(dep_libs)
+project_depends            += $(mysql_connector_libs)
 project_depends            += $(sys_libs)
 
 

@@ -173,7 +173,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -182,7 +182,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;../../src/mysql_connector/lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='lib_debug|Win32'">
@@ -192,7 +192,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>STATIC_CONCPP;WIN32;_DEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -202,7 +202,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx-static.lib;libssl.lib;libcrypto.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;../../src/mysql_connector/lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -220,7 +220,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -229,7 +229,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;../../src/mysql_connector/lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='lib_debug|x64'">
@@ -239,7 +239,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>STATIC_CONCPP;_DEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -249,7 +249,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx-static.lib;libssl.lib;libcrypto.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;../../src/mysql_connector/lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -269,7 +269,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -280,7 +280,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;../../src/mysql_connector/lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='lib_release|Win32'">
@@ -292,7 +292,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>STATIC_CONCPP;WIN32;NDEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -304,7 +304,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx-static.lib;libssl.lib;libcrypto.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)/;../../src/mysql_connector/lib/windows/$(configuration)/;</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -323,7 +323,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>EXPORT_GOOFER_DLL;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -334,7 +334,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;../../src/mysql_connector/lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='lib_release|x64'">
@@ -346,7 +346,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>STATIC_CONCPP;NDEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./;../../include/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;../../src/base/;../../src/mysql_helper/;../../src/mysql_connector/include/;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -358,7 +358,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>base.lib;mysqlcppconnx-static.lib;libssl.lib;libcrypto.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/windows/$(configuration)_x64/;../../src/mysql_connector/lib/windows/$(configuration)_x64/;</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>

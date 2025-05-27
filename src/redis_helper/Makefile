@@ -42,7 +42,7 @@ project_includes            = -I$(project_inc_path)
 project_includes           += -I$(project_inc_path)/cluster
 
 # includes of hiredis headers
-hiredis_inc_path            = $(project_home)/../hiredis
+hiredis_inc_path            = $(project_home)/../hiredis/include
 hiredis_includes            = -I$(hiredis_inc_path)
 
 # includes of base headers

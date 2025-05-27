@@ -76,12 +76,17 @@ sys_libs                    = -L$(sys_lib_path) -lpthread -ldl -lrt
 
 # depend libraries
 dep_lib_path                = $(project_home)/../../lib
-dep_libs                    = -L$(dep_lib_path) -lredis_tester -lbase
+dep_libs                    = -L$(dep_lib_path) -lredis_helper -lbase
+
+# hiredis libraries
+hiredis_lib_path            = $(project_home)/../../src/hiredis/lib/$(platform)
+hiredis_libs                = -L$(hiredis_lib_path) -lhiredis
 
 
 
 # project depends libraries
 project_depends             = $(dep_libs)
+project_depends            += $(hiredis_libs)
 project_depends            += $(sys_libs)
 
 
