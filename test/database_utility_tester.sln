@@ -6,8 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mysql_tester", "mysql_tester\mysql_tester.vcxproj", "{FC099FE9-3479-48FC-9D52-4DCFE374A14D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sqlite_tester", "sqlite_tester\sqlite_tester.vcxproj", "{B72DE7C5-76B1-4152-A360-66ED0F4CB183}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23} = {4EC5F9B6-2B6B-40C4-8045-171BED79BB23}
+		{FC099FE9-3479-48FC-9D52-4DCFE374A14D} = {FC099FE9-3479-48FC-9D52-4DCFE374A14D}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "redis_tester", "redis_tester\redis_tester.vcxproj", "{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FC099FE9-3479-48FC-9D52-4DCFE374A14D} = {FC099FE9-3479-48FC-9D52-4DCFE374A14D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,13 +63,9 @@ Global
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.dll_release|x86.ActiveCfg = dll_release|Win32
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.dll_release|x86.Build.0 = dll_release|Win32
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_debug|x64.ActiveCfg = lib_debug|x64
-		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_debug|x64.Build.0 = lib_debug|x64
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_debug|x86.ActiveCfg = lib_debug|Win32
-		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_debug|x86.Build.0 = lib_debug|Win32
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_release|x64.ActiveCfg = lib_release|x64
-		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_release|x64.Build.0 = lib_release|x64
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_release|x86.ActiveCfg = lib_release|Win32
-		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_release|x86.Build.0 = lib_release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
