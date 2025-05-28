@@ -476,7 +476,7 @@ static uint64_t get_time_delta(const struct timeval & lhs, const struct timeval 
     return delta;
 }
 
-bool test_correctness()
+static bool test_correctness()
 {
     RedisClient redis_client;
     if (!redis_client.init(SERVER, USERNAME, PASSWORD, 0, 5000))
@@ -701,7 +701,7 @@ bool test_correctness()
     return true;
 }
 
-void test_performance()
+static void test_performance()
 {
     const std::string folder("../..");
     std::list<std::string> file_list;

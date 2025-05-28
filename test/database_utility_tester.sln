@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "redis_tester", "redis_teste
 		{FC099FE9-3479-48FC-9D52-4DCFE374A14D} = {FC099FE9-3479-48FC-9D52-4DCFE374A14D}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mongo_tester", "mongo_tester\mongo_tester.vcxproj", "{E8FA8245-9D79-4749-B4A9-2A99681FA980}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		dll_debug|x64 = dll_debug|x64
@@ -66,6 +68,18 @@ Global
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_debug|x86.ActiveCfg = lib_debug|Win32
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_release|x64.ActiveCfg = lib_release|x64
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}.lib_release|x86.ActiveCfg = lib_release|Win32
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_debug|x64.ActiveCfg = dll_debug|x64
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_debug|x64.Build.0 = dll_debug|x64
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_debug|x86.ActiveCfg = dll_debug|Win32
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_debug|x86.Build.0 = dll_debug|Win32
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_release|x64.ActiveCfg = dll_release|x64
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_release|x64.Build.0 = dll_release|x64
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_release|x86.ActiveCfg = dll_release|Win32
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.dll_release|x86.Build.0 = dll_release|Win32
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.lib_debug|x64.ActiveCfg = lib_debug|x64
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.lib_debug|x86.ActiveCfg = lib_debug|Win32
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.lib_release|x64.ActiveCfg = lib_release|x64
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.lib_release|x86.ActiveCfg = lib_release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
