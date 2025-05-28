@@ -4,19 +4,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mysql_tester", "mysql_tester\mysql_tester.vcxproj", "{FC099FE9-3479-48FC-9D52-4DCFE374A14D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DA782808-20B1-41DF-A699-7667D00E64DC} = {DA782808-20B1-41DF-A699-7667D00E64DC}
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980} = {E8FA8245-9D79-4749-B4A9-2A99681FA980}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sqlite_tester", "sqlite_tester\sqlite_tester.vcxproj", "{B72DE7C5-76B1-4152-A360-66ED0F4CB183}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4EC5F9B6-2B6B-40C4-8045-171BED79BB23} = {4EC5F9B6-2B6B-40C4-8045-171BED79BB23}
+		{DA782808-20B1-41DF-A699-7667D00E64DC} = {DA782808-20B1-41DF-A699-7667D00E64DC}
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980} = {E8FA8245-9D79-4749-B4A9-2A99681FA980}
 		{FC099FE9-3479-48FC-9D52-4DCFE374A14D} = {FC099FE9-3479-48FC-9D52-4DCFE374A14D}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "redis_tester", "redis_tester\redis_tester.vcxproj", "{4EC5F9B6-2B6B-40C4-8045-171BED79BB23}"
 	ProjectSection(ProjectDependencies) = postProject
+		{DA782808-20B1-41DF-A699-7667D00E64DC} = {DA782808-20B1-41DF-A699-7667D00E64DC}
+		{E8FA8245-9D79-4749-B4A9-2A99681FA980} = {E8FA8245-9D79-4749-B4A9-2A99681FA980}
 		{FC099FE9-3479-48FC-9D52-4DCFE374A14D} = {FC099FE9-3479-48FC-9D52-4DCFE374A14D}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mongo_tester", "mongo_tester\mongo_tester.vcxproj", "{E8FA8245-9D79-4749-B4A9-2A99681FA980}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DA782808-20B1-41DF-A699-7667D00E64DC} = {DA782808-20B1-41DF-A699-7667D00E64DC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "leveldb_tester", "leveldb_tester\leveldb_tester.vcxproj", "{DA782808-20B1-41DF-A699-7667D00E64DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +93,22 @@ Global
 		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.lib_debug|x86.ActiveCfg = lib_debug|Win32
 		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.lib_release|x64.ActiveCfg = lib_release|x64
 		{E8FA8245-9D79-4749-B4A9-2A99681FA980}.lib_release|x86.ActiveCfg = lib_release|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_debug|x64.ActiveCfg = dll_debug|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_debug|x64.Build.0 = dll_debug|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_debug|x86.ActiveCfg = dll_debug|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_debug|x86.Build.0 = dll_debug|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_release|x64.ActiveCfg = dll_release|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_release|x64.Build.0 = dll_release|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_release|x86.ActiveCfg = dll_release|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.dll_release|x86.Build.0 = dll_release|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_debug|x64.ActiveCfg = lib_debug|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_debug|x64.Build.0 = lib_debug|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_debug|x86.ActiveCfg = lib_debug|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_debug|x86.Build.0 = lib_debug|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_release|x64.ActiveCfg = lib_release|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_release|x64.Build.0 = lib_release|x64
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_release|x86.ActiveCfg = lib_release|Win32
+		{DA782808-20B1-41DF-A699-7667D00E64DC}.lib_release|x86.Build.0 = lib_release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

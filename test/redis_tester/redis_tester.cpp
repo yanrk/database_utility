@@ -19,7 +19,6 @@
     #include <unistd.h>
     #include <errno.h>
 #endif // GOOFER_OS_IS_WIN
-
 #include <ctime>
 #include <cstdio>
 #include <cstdint>
@@ -27,10 +26,8 @@
 #include <cstring>
 #include <cstdlib>
 #include <cassert>
-
 #include <list>
 #include <string>
-#include <iostream>
 #include "redis_helper.h"
 
 #ifdef TEST_CLUSTER

@@ -1,10 +1,9 @@
 /********************************************************
- * Description : redis db class
- * Author      : baoc, yanrk
+ * Description : redis helper which base on hiredis
+ * Author      : yanrk
  * Email       : yanrkchina@163.com
- * Version     : 3.0
- * History     :
- * Copyright(C): 2023
+ * Version     : 2.0
+ * Copyright(C): 2025
  ********************************************************/
 
 #include "macros.h"

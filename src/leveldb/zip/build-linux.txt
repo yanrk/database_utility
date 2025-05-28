@@ -1,0 +1,25 @@
+1、uncompress leveldb-1.23.zip
+
+2、cd leveldb-1.23
+
+3、open CMakeLists.txt，comment lines
+   add_subdirectory("third_party/googletest")
+   add_subdirectory("third_party/benchmark")
+   if(LEVELDB_HAVE_NO_MISSING_FIELD_INITIALIZERS)
+      set_property(TARGET gtest
+         APPEND PROPERTY COMPILE_OPTIONS -Wno-missing-field-initializers)
+      set_property(TARGET gmock
+         APPEND PROPERTY COMPILE_OPTIONS -Wno-missing-field-initializers)
+   endif(LEVELDB_HAVE_NO_MISSING_FIELD_INITIALIZERS)
+
+3、build debug
+   mkdir build-debug
+   cd build-debug
+   cmake -DCMAKE_BUILD_TYPE=Debug ..
+   make leveldb
+
+4、build release
+   mkdir build-release
+   cd build-release
+   cmake -DCMAKE_BUILD_TYPE=Release ..
+   make leveldb

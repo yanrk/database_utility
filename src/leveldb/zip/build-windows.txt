@@ -1,0 +1,23 @@
+1、uncompress leveldb-1.23.zip
+
+2、cd leveldb-1.23
+
+3、open CMakeLists.txt，comment lines
+   add_subdirectory("third_party/googletest")
+   add_subdirectory("third_party/benchmark")
+
+3、build win32
+   mkdir build-win32
+   cd build-win32
+   cmake -G "Visual Studio 17 2022" -A Win32 ..
+
+4、build win64
+   mkdir build-win64
+   cd build-win64
+   cmake -G "Visual Studio 17 2022" ..
+
+5、build debug
+   devenv /build Debug leveldb.sln
+
+6、build release
+   devenv /build Release leveldb.sln
