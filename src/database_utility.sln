@@ -8,19 +8,27 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mysql_helper", "mysql_helper\mysql_helper.vcxproj", "{5C4F498A-338B-41F6-8A44-D184320BDE08}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1E979751-78B0-4438-861E-3DC7BE8BF102} = {1E979751-78B0-4438-861E-3DC7BE8BF102}
+		{25296884-D788-455E-B013-736B5C818F50} = {25296884-D788-455E-B013-736B5C818F50}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sqlite_helper", "sqlite_helper\sqlite_helper.vcxproj", "{7C7B0ABF-6757-4C5A-ABCB-85FA09C96399}"
 	ProjectSection(ProjectDependencies) = postProject
 		{17BC7C51-B421-4D70-91AE-2D92505D509C} = {17BC7C51-B421-4D70-91AE-2D92505D509C}
 		{1E979751-78B0-4438-861E-3DC7BE8BF102} = {1E979751-78B0-4438-861E-3DC7BE8BF102}
+		{25296884-D788-455E-B013-736B5C818F50} = {25296884-D788-455E-B013-736B5C818F50}
 		{5C4F498A-338B-41F6-8A44-D184320BDE08} = {5C4F498A-338B-41F6-8A44-D184320BDE08}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "redis_helper", "redis_helper\redis_helper.vcxproj", "{17BC7C51-B421-4D70-91AE-2D92505D509C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1E979751-78B0-4438-861E-3DC7BE8BF102} = {1E979751-78B0-4438-861E-3DC7BE8BF102}
+		{25296884-D788-455E-B013-736B5C818F50} = {25296884-D788-455E-B013-736B5C818F50}
 		{5C4F498A-338B-41F6-8A44-D184320BDE08} = {5C4F498A-338B-41F6-8A44-D184320BDE08}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mongo_helper", "mongo_helper\mongo_helper.vcxproj", "{25296884-D788-455E-B013-736B5C818F50}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1E979751-78B0-4438-861E-3DC7BE8BF102} = {1E979751-78B0-4438-861E-3DC7BE8BF102}
 	EndProjectSection
 EndProject
 Global
@@ -87,6 +95,22 @@ Global
 		{17BC7C51-B421-4D70-91AE-2D92505D509C}.lib_debug|x86.ActiveCfg = lib_debug|Win32
 		{17BC7C51-B421-4D70-91AE-2D92505D509C}.lib_release|x64.ActiveCfg = lib_release|x64
 		{17BC7C51-B421-4D70-91AE-2D92505D509C}.lib_release|x86.ActiveCfg = lib_release|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.dll_debug|x64.ActiveCfg = dll_debug|x64
+		{25296884-D788-455E-B013-736B5C818F50}.dll_debug|x64.Build.0 = dll_debug|x64
+		{25296884-D788-455E-B013-736B5C818F50}.dll_debug|x86.ActiveCfg = dll_debug|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.dll_debug|x86.Build.0 = dll_debug|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.dll_release|x64.ActiveCfg = dll_release|x64
+		{25296884-D788-455E-B013-736B5C818F50}.dll_release|x64.Build.0 = dll_release|x64
+		{25296884-D788-455E-B013-736B5C818F50}.dll_release|x86.ActiveCfg = dll_release|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.dll_release|x86.Build.0 = dll_release|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.lib_debug|x64.ActiveCfg = lib_debug|x64
+		{25296884-D788-455E-B013-736B5C818F50}.lib_debug|x64.Build.0 = lib_debug|x64
+		{25296884-D788-455E-B013-736B5C818F50}.lib_debug|x86.ActiveCfg = lib_debug|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.lib_debug|x86.Build.0 = lib_debug|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.lib_release|x64.ActiveCfg = lib_release|x64
+		{25296884-D788-455E-B013-736B5C818F50}.lib_release|x64.Build.0 = lib_release|x64
+		{25296884-D788-455E-B013-736B5C818F50}.lib_release|x86.ActiveCfg = lib_release|Win32
+		{25296884-D788-455E-B013-736B5C818F50}.lib_release|x86.Build.0 = lib_release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
