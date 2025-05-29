@@ -161,7 +161,6 @@ bool LevelDB::erase(const std::string & key)
 
     leveldb::WriteOptions write_options;
     write_options.sync = false;
-
     if (!m_db->Delete(write_options, key).ok())
     {
         RUN_LOG_ERR("level db (%s) erase (%s) failure", m_path.c_str(), key.c_str());
