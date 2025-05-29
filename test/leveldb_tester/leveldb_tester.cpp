@@ -6,8 +6,8 @@
  * Copyright(C): 2025
  ********************************************************/
 
+#include <cstring>
 #include "leveldb_helper.h"
-
 
 struct user_storage_t
 {
@@ -19,7 +19,7 @@ struct user_storage_t
 
 static bool operator != (const user_storage_t & lhs, const user_storage_t & rhs)
 {
-    return (0 != memcmp(&lhs, &rhs, sizeof(user_storage_t)));
+    return 0 != memcmp(&lhs, &rhs, sizeof(user_storage_t));
 }
 
 static bool test_1()
