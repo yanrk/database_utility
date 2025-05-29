@@ -207,6 +207,17 @@ static bool test_2()
         printf("\n");
     }
 
+    // release db reference when leave the scope
+    {
+        LevelIter iter4(db, false);
+        while (iter4.good())
+        {
+            printf("(%s) -> (%s)\n", iter4.get_key().c_str(), iter4.get_value().c_str());
+            iter4.next();
+        }
+        printf("\n");
+    }
+
     db.exit();
 
     if (!LevelDB::destroy(path))

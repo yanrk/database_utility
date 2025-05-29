@@ -25,7 +25,7 @@ class LevelDB;
 class GOOFER_API LevelIter
 {
 public:
-    LevelIter(LevelDB & db);
+    LevelIter(LevelDB & db, bool forward = true);
     LevelIter(const LevelIter &) = delete;
     LevelIter(LevelIter &&) = delete;
     LevelIter & operator = (const LevelIter &) = delete;
@@ -40,6 +40,7 @@ public:
 
 private:
     leveldb::Iterator     * m_iter;
+    bool                    m_forward;
 };
 
 class GOOFER_API LevelDB

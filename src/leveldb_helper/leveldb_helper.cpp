@@ -12,15 +12,23 @@
 #include "leveldb/db.h"
 #include "leveldb_helper.h"
 
-LevelIter::LevelIter(LevelDB & db)
+LevelIter::LevelIter(LevelDB & db, bool forward)
     : m_iter(nullptr)
+    , m_forward(forward)
 {
     if (nullptr != db.m_db)
     {
         m_iter = db.m_db->NewIterator(leveldb::ReadOptions());
         if (nullptr != m_iter)
         {
-            m_iter->SeekToFirst();
+            if (m_forward)
+            {
+                m_iter->SeekToFirst();
+            }
+            else
+            {
+                m_iter->SeekToLast();
+            }
         }
     }
 }
@@ -43,7 +51,14 @@ void LevelIter::next()
 {
     if (good())
     {
-        m_iter->Next();
+        if (m_forward)
+        {
+            m_iter->Next();
+        }
+        else
+        {
+            m_iter->Prev();
+        }
     }
 }
 
