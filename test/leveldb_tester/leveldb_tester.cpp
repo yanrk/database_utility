@@ -109,11 +109,14 @@ static bool test_2()
         return false;
     }
 
-    LevelIter iter1(db);
-    if (iter1.good())
+    // release db reference when leave the scope
     {
-        printf("level iter good test failed\n");
-        return false;
+        LevelIter iter1(db);
+        if (iter1.good())
+        {
+            printf("level iter good test failed\n");
+            return false;
+        }
     }
 
     if (!db.set("a", "app"))
@@ -146,13 +149,16 @@ static bool test_2()
         return false;
     }
 
-    LevelIter iter2(db);
-    while (iter2.good())
+    // release db reference when leave the scope
     {
-        printf("(%s) -> (%s)\n", iter2.get_key().c_str(), iter2.get_value().c_str());
-        iter2.next();
+        LevelIter iter2(db);
+        while (iter2.good())
+        {
+            printf("(%s) -> (%s)\n", iter2.get_key().c_str(), iter2.get_value().c_str());
+            iter2.next();
+        }
+        printf("\n");
     }
-    printf("\n");
 
     if (!db.set("c", "1cfg"))
     {
@@ -190,13 +196,16 @@ static bool test_2()
         return false;
     }
 
-    LevelIter iter3(db);
-    while (iter3.good())
+    // release db reference when leave the scope
     {
-        printf("(%s) -> (%s)\n", iter3.get_key().c_str(), iter3.get_value().c_str());
-        iter3.next();
+        LevelIter iter3(db);
+        while (iter3.good())
+        {
+            printf("(%s) -> (%s)\n", iter3.get_key().c_str(), iter3.get_value().c_str());
+            iter3.next();
+        }
+        printf("\n");
     }
-    printf("\n");
 
     db.exit();
 
